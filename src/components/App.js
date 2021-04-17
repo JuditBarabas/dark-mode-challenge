@@ -3,8 +3,21 @@ import ThemeSwitcher from "../partials/ThemeSwitcher";
 
 export default class App extends React.Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            darkMode: false
+        };
+        this.changeMode = this.changeMode.bind(this);
+    }
+
+    changeMode() {
+        this.setState(prevState => ({darkMode: !prevState.darkMode}));
+    }
+
     render() {
         return (
+            <div className={this.state.darkMode && "dark-mode"}>
             <div className="app">
 
                 <div className="level header">
@@ -12,7 +25,9 @@ export default class App extends React.Component {
                         <div className="morningscore-avatar"></div>
                         <h1 className="title">Dark Mode Challenge</h1>
                     </div>
-                    <ThemeSwitcher/>
+                    <ThemeSwitcher 
+                        darkMode={this.state.darkMode}
+                        changeMode={this.changeMode}/>
                 </div>
 
 
@@ -52,6 +67,7 @@ export default class App extends React.Component {
                         <button type="submit" className="button is-primary">Submit</button>
                     </div>
                 </section>
+            </div>
             </div>
         );
     }
